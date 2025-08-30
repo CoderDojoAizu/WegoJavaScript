@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript サンプルコード</title>
+    <br />
+    <!-- Prism 本体 & プラグイン -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/prismjs@1/themes/prism.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/prismjs@1/plugins/line-numbers/prism-line-numbers.css"
+      rel="stylesheet"
+    />
+    <!-- ► 非表示文字を可視化するプラグイン (spaces / tabs / EOL) -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/prismjs@1/plugins/show-invisibles/prism-show-invisibles.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* -------- 基本レイアウト -------- */
+      pre {
+        margin: 2em 0;
+        background: #fff !important; /* 背景を白に統一 */
+        border: 1px solid #e0e0e0; /* 区切り線 */
+        padding: 1rem;
+      }
+      pre[class*="language-"] code,
+      code[class*="language-"] {
+        font-size: 0.875rem !important; /* 14px 相当 */
+      }
+      .section-title {
+        font-weight: bold;
+        margin-top: 2em;
+        font-size: 1.375rem; /* 22px 相当 */
+      }
+
+      /* -------- 空白文字の可視化 -------- */
+      /* Prism show‑invisibles は .token.space に幅ゼロ文字を注入するので
+         before 擬似要素で好みの記号を表示する */
+      .token.space {
+        position: relative;
+      }
+      .token.space::before {
+        content: "▢"; /* ◻ や · 等 好みで変更可 */
+        font-size: 0.6em;
+        position: relative;
+        top: 0.25em; /* 下付きになるようオフセット */
+        opacity: 0.4; /* 画面では薄く */
+      }
+      /* 改行(LF/CR)トークンは文字を非表示にし、改行は維持する */
+      .token.lf,
+      .token.cr {
+        font-size: 0; /* 可視文字をなくす */
+      }
+      .token.lf::before,
+      .token.cr::before {
+        content: ""; /* 記号を出さない */
+      }
+
+      /* 行番号のフォントサイズをコード行に合わせる */
+      .line-numbers-rows > span:before {
+        font-size: 0.875rem !important;
+      }
+
+      /* -------- 印刷調整 -------- */
+      @media print {
+        .page-break {
+          page-break-after: always;
+          break-after: page;
+        }
+        /* シンタックスカラー除去して黒一色に */
+        code[class*="language-"],
+        pre[class*="language-"] code,
+        .token {
+          color: #000 !important;
+          background: transparent !important;
+        }
+        /* 空白記号も濃く表示 */
+        .token.space::before {
+          opacity: 1;
+        }
+        /* 行番号も黒に */
+        .line-numbers .line-numbers-rows > span:before {
+          color: #000 !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>JavaScript サンプルコード</h1>
+    □は半角スペース(空白文字)記号です。
+
+    <!-- 1.JavaScript で作ってみよう -->
+    <div class="section-title">1.JavaScript で作ってみよう</div>
+    <pre
+      class="line-numbers"
+    ><code class="language-javascript">await commands.wego.bow();
+await commands.wegoDance.SakuraIllumination();</code></pre>
+
+    <!-- 2.変数を使ってみよう -->
+    <div class="section-title">2.変数を使ってみよう</div>
+    <pre
+      class="line-numbers"
+    ><code class="language-javascript">let myName = "あるくメカトロウィーゴ";
+await commands.wegoSpeech.setLanguage("ja-JP");
+await commands.wegoSpeech.startText2Speech("僕の名前は" + myName);</code></pre>
+
+    <div class="page-break"></div>
+
+    <!-- 3.条件分岐（if）を使ってみる -->
+    <div class="section-title">3.条件分岐（if）を使ってみる</div>
+    <pre class="line-numbers"><code class="language-javascript">let value;
+let fortune;
+value = Math.floor(Math.random() * 3) + 1;
+if (value == 1) {
+  fortune = "最高";
+} else if (value == 2) {
+  fortune = "最悪";
+} else {
+  fortune = "普通";
+}
+await commands.wegoSpeech.setLanguage("ja-JP");
+await commands.wegoSpeech.startText2Speech("今日の運勢は" + fortune);</code></pre>
+
+    <div class="page-break"></div>
+
+    <!-- 4.関数を使ってみる -->
+    <div class="section-title">4.関数を使ってみる</div>
+    <pre
+      class="line-numbers"
+    ><code class="language-javascript">function addNumber(value1, value2) {
+  return value1 + value2;
+}
+await commands.wegoSpeech.setLanguage("ja-JP");
+await commands.wegoSpeech.startText2Speech(addNumber(10, 20));</code></pre>
+
+    <!-- 5.ループを使ってみる -->
+    <div class="section-title">5.ループを使ってみる</div>
+    <pre
+      class="line-numbers"
+    ><code class="language-javascript">await commands.wegoSpeech.setLanguage("ja-JP");
+for (let i = 1; i <= 3; i++) {
+  await commands.wegoSpeech.startText2Speech("回数" + i);
+}</code></pre>
+
+    <div class="page-break"></div>
+
+    <!-- 6.一斉に踊ろう -->
+    <div class="section-title">6.一斉に踊ろう</div>
+    <pre
+      class="line-numbers"
+    ><code class="language-javascript">let hasDanced = false;
+async function checkTimeAndDance() {
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  if (hours == 11 && minutes == 15 && !hasDanced) {
+    console.log("時刻になりました。ダンスを開始します。");
+    await commands.wegoDance.dance();
+    hasDanced = true;
+  }
+}
+setInterval(checkTimeAndDance, 100);</code></pre>
+
+    <!-- Prism スクリプト -->
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1/prism.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1/plugins/line-numbers/prism-line-numbers.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1/plugins/show-invisibles/prism-show-invisibles.js"></script>
+  </body>
+</html>

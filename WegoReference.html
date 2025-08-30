@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>WegoReference.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h2 id="1-wego%E3%82%AF%E3%83%A9%E3%82%B9%E5%9F%BA%E6%9C%AC%E5%8B%95%E4%BD%9C%E3%82%92%E9%9B%86%E3%82%81%E3%81%9F%E3%82%AF%E3%83%A9%E3%82%B9">1. [wego]クラス：基本動作を集めたクラス</h2>
+<p>1-1. おじぎをする</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wego.bow();
+</div></code></pre>
+<p>1-2. バイバイする</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wego.bye();
+</div></code></pre>
+<p>1-3. 後ろに戻る</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wego.goBackward();
+</div></code></pre>
+<p>1-4. 少し後ろに戻る</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wego.goBackwardLittle();
+</div></code></pre>
+<p>1-5. 後ろに（１歩）戻る</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wego.goBackwardNStepsSlowly(<span class="hljs-number">1</span>);
+</div></code></pre>
+<p>※()内は歩数を 1~4 で指定</p>
+<p>1-6. 前に進む</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wego.goForward();
+</div></code></pre>
+<p>1-7. 少し前に進む</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wego.goForwardLittle();
+</div></code></pre>
+<p>1-8. 前に(1 歩)進む</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wego.goForwardNStepsSlowly(<span class="hljs-number">1</span>);
+</div></code></pre>
+<p>※()内は歩数を 1~4 で指定</p>
+<p>1-9. 左足でキックする</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wego.kickWithLeftFoot();
+</div></code></pre>
+<p>1-10. 右足でキックする</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wego.kickWithRightFoot();
+</div></code></pre>
+<p>1-11. 左に（1 回）ずれる</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wego.moveLeftTimes(<span class="hljs-number">1</span>);
+</div></code></pre>
+<p>※()内は回数を 1~3 で指定</p>
+<p>1-12. 右に（1 回）ずれる</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wego.moveRightTimes(<span class="hljs-number">1</span>);
+</div></code></pre>
+<p>※()内は回数を 1~3 で指定</p>
+<p>1-13. 左手を上げて下げる</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wego.raiseLeftHand();
+</div></code></pre>
+<p>1-14. 右手を上げて下げる</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wego.raiseRightHand();
+</div></code></pre>
+<p>1-15. 目の色を消灯する</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wego.setLED(<span class="hljs-string">"OFF"</span>);
+</div></code></pre>
+<p>1-16. 目の色を赤にする</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wego.setLED(<span class="hljs-string">"R"</span>);
+</div></code></pre>
+<p>1-17. 目の色を青にする</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wego.setLED(<span class="hljs-string">"B"</span>);
+</div></code></pre>
+<p>1-18. 目の色を黄にする</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wego.setLED(<span class="hljs-string">"Y"</span>);
+</div></code></pre>
+<p>1-19. 少し左を向く</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wego.turnBitLeft();
+</div></code></pre>
+<p>1-20. 少し右を向く</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wego.turnBitRight();
+</div></code></pre>
+<p>1-21. 左を向く</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wego.turnLeft();
+</div></code></pre>
+<p>1-22. わずかに左を向く</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wego.turnLittleLeft();
+</div></code></pre>
+<p>1-23. わずかに右を向く</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wego.turnLittleRight();
+</div></code></pre>
+<p>1-24. 右を向く</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wego.turnRight();
+</div></code></pre>
+<h2 id="2-wegodance%E3%82%AF%E3%83%A9%E3%82%B9%E4%BD%93%E6%93%8D%E3%81%AA%E3%81%A9%E3%81%AE%E3%83%80%E3%83%B3%E3%82%B9%E7%B3%BB%E5%8B%95%E4%BD%9C%E3%82%92%E9%9B%86%E3%82%81%E3%81%9F%E3%82%AF%E3%83%A9%E3%82%B9">2. [wegoDance]クラス：体操などのダンス系動作を集めたクラス</h2>
+<p>2-1. ♪ 桜イルミネーション</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoDance.SakuraIllumination();
+</div></code></pre>
+<p>2-2. 目の色を変える</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoDance.changeEyeColor();
+</div></code></pre>
+<p>2-3. 左手でチョップする</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoDance.chopWithLeftHand();
+</div></code></pre>
+<p>2-4. 右手でチョップする</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoDance.chopWithRightHand();
+</div></code></pre>
+<p>2-5. カスタマイズダンス</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoDance.customizeDance(
+  <span class="hljs-string">"sound1.wav"</span>,
+  <span class="hljs-string">"88"</span>,
+  <span class="hljs-string">"88"</span>,
+  <span class="hljs-string">"88"</span>,
+  <span class="hljs-string">"88"</span>,
+  <span class="hljs-string">"189"</span>
+);
+</div></code></pre>
+<p>※ミュージック、ダンス、決めポーズそれぞれ以下の選択肢を有する</p>
+<p>2-6. ダンスする ♪</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoDance.dance();
+</div></code></pre>
+<p>2-7. モゾモゾする</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoDance.fidget();
+</div></code></pre>
+<p>2-8. ガッツポーズする</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoDance.holdUpFists();
+</div></code></pre>
+<p>2-9. フレフレ</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoDance.hooray();
+</div></code></pre>
+<p>2-10. リズムをとる</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoDance.horizontalRhythm();
+</div></code></pre>
+<p>2-11. ガッカリする</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoDance.lookDisappointed();
+</div></code></pre>
+<p>2-12. ごっつあんポーズをする</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoDance.lookGottuan();
+</div></code></pre>
+<p>2-13. オーマイガッポーズをする</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoDance.lookOmg();
+</div></code></pre>
+<p>2-14. 左足ローキック</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoDance.lowKickWithLeftFoot();
+</div></code></pre>
+<p>2-15. 右足ローキック</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoDance.lowKickWithRightFoot();
+</div></code></pre>
+<p>2-16. 左足を高く上げる</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoDance.raiseLeftLeg();
+</div></code></pre>
+<p>2-17. 右足を高く上げる</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoDance.raiseRightLeg();
+</div></code></pre>
+<h2 id="3-wegosensor%E3%82%AF%E3%83%A9%E3%82%B9%E7%85%A7%E5%BA%A6%E3%83%BB%E8%B7%9D%E9%9B%A2%E3%83%BB%E4%BA%8C%E6%AC%A1%E5%85%83%E3%82%B3%E3%83%BC%E3%83%89%E3%82%B9%E3%82%AD%E3%83%A3%E3%83%8A%E3%83%BC%E7%AD%89%E3%82%BB%E3%83%B3%E3%82%B7%E3%83%B3%E3%82%B0%E6%A9%9F%E8%83%BD%E3%82%92%E3%82%82%E3%81%A4%E3%82%AF%E3%83%A9%E3%82%B9">3. [wegoSensor]クラス：照度・距離・二次元コードスキャナー等センシング機能をもつクラス</h2>
+<p>3-1. 充電</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">while</span> ((<span class="hljs-keyword">await</span> commands.wegoSensor.batteryCharging()) == <span class="hljs-number">0</span>) {
+  <span class="hljs-keyword">await</span> commands.wego.bow();
+}
+<span class="hljs-keyword">await</span> commands.wego.bye();
+</div></code></pre>
+<p>3-2. 体力</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">while</span> ((<span class="hljs-keyword">await</span> commands.wegoSensor.batteryMonitor()) &gt;= <span class="hljs-number">30</span>) {
+  <span class="hljs-keyword">await</span> commands.wego.bow();
+}
+<span class="hljs-keyword">await</span> commands.wego.bye();
+</div></code></pre>
+<p>3-3. 二次元コードリーダー</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoSensor.read2dCode();
+</div></code></pre>
+<p>3-4. 周囲の明るさ</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">while</span> ((<span class="hljs-keyword">await</span> commands.wegoSensor.sensorIlluminance()) &gt;= <span class="hljs-number">30</span>) {
+  <span class="hljs-keyword">await</span> commands.wego.bow();
+}
+<span class="hljs-keyword">await</span> commands.wego.bye();
+</div></code></pre>
+<p>3-5. 障害物までの距離</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">while</span> ((<span class="hljs-keyword">await</span> commands.wegoSensor.sensorTOF()) &gt;= <span class="hljs-number">10</span>) {
+  <span class="hljs-keyword">await</span> commands.wego.bow();
+}
+<span class="hljs-keyword">await</span> commands.wego.bye();
+</div></code></pre>
+<p>3-6. カメラの画像を解析する</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoSensor.setInput(<span class="hljs-string">"webcam"</span>);
+</div></code></pre>
+<p>3-7. ステージの画像を解析する</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoSensor.setInput(<span class="hljs-string">"stage"</span>);
+</div></code></pre>
+<p>3-8. シャッター</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoSensor.shutter();
+</div></code></pre>
+<h2 id="4-wegospecial%E3%82%AF%E3%83%A9%E3%82%B9%E5%89%8D%E8%BB%A2%E3%83%BB%E5%BE%8C%E8%BB%A2%E3%81%AA%E3%81%A9%E3%82%B9%E3%83%9A%E3%82%B7%E3%83%A3%E3%83%AB%E3%81%AA%E5%8B%95%E4%BD%9C%E3%82%92%E9%9B%86%E3%82%81%E3%81%9F%E3%82%AF%E3%83%A9%E3%82%B9">4. [wegoSpecial]クラス：前転・後転などスペシャルな動作を集めたクラス</h2>
+<p>4-1. （注意）ダッシュ 30% 9 歩</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoSpecial.dash30Percentage();
+</div></code></pre>
+<p>4-2. （注意）ダッシュ 60% 9 歩</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoSpecial.dash60Percentage();
+</div></code></pre>
+<p>4-3. 元気よく後ろに（１歩）戻る</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoSpecial.goBackwardNSteps(<span class="hljs-number">1</span>);
+</div></code></pre>
+<p>※()内は歩数を 1~4 で指定</p>
+<p>4-4. 元気よく前に（１歩）進む</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoSpecial.goForwardNSteps(<span class="hljs-number">1</span>);
+</div></code></pre>
+<p>※()内は歩数を 1~4 で指定</p>
+<p>4-5. ロボットにモーション ID101 を送信する（待機なし）</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoSpecial.motionWithId(<span class="hljs-string">"101"</span>);
+</div></code></pre>
+<p>4-6. モーション ID101 のモーションを動かす（待機あり）</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoSpecial.motionWithIdWait(<span class="hljs-string">"101"</span>);
+</div></code></pre>
+<p>4-7. ロボットにモーション ID101 を送信する（待機あり）</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoSpecial.sendCommand(<span class="hljs-string">"101"</span>);
+</div></code></pre>
+<p>4-8. 座り姿勢から立つ</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoSpecial.sitDownAndStandUp();
+</div></code></pre>
+<p>4-9. Special1</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoSpecial.special1();
+</div></code></pre>
+<p>4-10. Special2</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoSpecial.special2();
+</div></code></pre>
+<p>4-11. Special3</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoSpecial.special3();
+</div></code></pre>
+<p>4-12. 立ち姿勢から座る</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoSpecial.standUpAndSitDown();
+</div></code></pre>
+<h2 id="5-wegospeech%E3%82%AF%E3%83%A9%E3%82%B9%E9%9F%B3%E5%A3%B0%E5%90%88%E6%88%90%E3%83%BB%E9%9F%B3%E5%A3%B0%E8%AA%8D%E8%AD%98%E3%81%AA%E3%81%A9%E4%BC%9A%E8%A9%B1%E6%A9%9F%E8%83%BD%E3%82%92%E3%82%82%E3%81%A4%E3%82%AF%E3%83%A9%E3%82%B9">5. [wegoSpeech]クラス：音声合成・音声認識など会話機能をもつクラス</h2>
+<p>5-1. 言語</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoSpeech.setLanguage(<span class="hljs-string">"ja-JP"</span>);
+<span class="hljs-built_in">console</span>.warn(<span class="hljs-keyword">await</span> commands.wegoSpeech.getLanguage());
+</div></code></pre>
+<p>5-2. 発音評価の結果</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoSpeech.setLanguage(<span class="hljs-string">"en-US"</span>);
+<span class="hljs-built_in">console</span>.warn(<span class="hljs-keyword">await</span> commands.wegoSpeech.getLanguage());
+<span class="hljs-built_in">console</span>.warn(<span class="hljs-keyword">await</span> commands.wegoSpeech.getRecognitionScore());
+</div></code></pre>
+<p>5-3. 音声認識の結果</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoSpeech.startSpeech2Text();
+<span class="hljs-built_in">console</span>.warn(<span class="hljs-keyword">await</span> commands.wegoSpeech.getRecognitionText());
+</div></code></pre>
+<p>5-4. 〇〇としゃべる</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoSpeech.startText2Speech(<span class="hljs-string">"こんにちは"</span>);
+</div></code></pre>
+<p>5-5. 翻訳</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoSpeech.translateByDeepL(<span class="hljs-string">"Hello"</span>, <span class="hljs-string">"JA"</span>);
+<span class="hljs-keyword">await</span> commands.wegoSpeech.translateByDeepL(<span class="hljs-string">"さようなら"</span>, <span class="hljs-string">"EN"</span>);
+</div></code></pre>
+<h2 id="6-wegomotioncreation%E3%82%AF%E3%83%A9%E3%82%B9%E3%83%A2%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E3%82%BC%E3%83%AD%E3%81%8B%E3%82%89%E5%88%B6%E4%BD%9C%E3%81%A7%E3%81%8D%E3%82%8B%E6%A9%9F%E8%83%BD%E3%82%92%E3%82%82%E3%81%A4%E3%82%AF%E3%83%A9%E3%82%B9">6. [wegoMotionCreation]クラス：モーションをゼロから制作できる機能をもつクラス</h2>
+<p>6-1. 関節角度取得</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">8</span>; i++) {
+  <span class="hljs-built_in">console</span>.warn(<span class="hljs-keyword">await</span> commands.wegoMotionCreation.getAngle(i));
+}
+</div></code></pre>
+<p>6-2. 関節角度設定(右肩)</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoMotionCreation.angleVid0(<span class="hljs-number">160</span>, <span class="hljs-number">100</span>);
+</div></code></pre>
+<p>6-3. 関節角度設定(左肩)</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoMotionCreation.angleVid1(<span class="hljs-number">160</span>, <span class="hljs-number">100</span>);
+</div></code></pre>
+<p>6-4. 関節角度設定(右腿)</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoMotionCreation.angleVid2(<span class="hljs-number">160</span>, <span class="hljs-number">100</span>);
+</div></code></pre>
+<p>6-5. 関節角度設定(右足首)</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoMotionCreation.angleVid3(<span class="hljs-number">160</span>, <span class="hljs-number">100</span>);
+</div></code></pre>
+<p>6-6. 関節角度設定(右足)</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoMotionCreation.angleVid4(<span class="hljs-number">160</span>, <span class="hljs-number">100</span>);
+</div></code></pre>
+<p>6-7. 関節角度設定(左腿)</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoMotionCreation.angleVid5(<span class="hljs-number">160</span>, <span class="hljs-number">100</span>);
+</div></code></pre>
+<p>6-8. 関節角度設定(左足首)</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoMotionCreation.angleVid6(<span class="hljs-number">160</span>, <span class="hljs-number">100</span>);
+</div></code></pre>
+<p>6-9. 関節角度設定(左足)</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoMotionCreation.angleVid7(<span class="hljs-number">160</span>, <span class="hljs-number">100</span>);
+</div></code></pre>
+<p>6-10. 関節角度設定(全指定)</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoMotionCreation.allAngles(
+  <span class="hljs-string">""</span>,
+  <span class="hljs-number">180</span>,
+  <span class="hljs-number">180</span>,
+  <span class="hljs-number">180</span>,
+  <span class="hljs-number">180</span>,
+  <span class="hljs-number">180</span>,
+  <span class="hljs-number">180</span>,
+  <span class="hljs-number">180</span>,
+  <span class="hljs-number">180</span>
+);
+</div></code></pre>
+<p>6-11. 目の色</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoMotionCreation.setLed(<span class="hljs-string">"#00FF00"</span>);
+</div></code></pre>
+<p>6-12. 関節モーション時間 200 ミリ秒</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoMotionCreation.setMotionTime(<span class="hljs-number">200</span>);
+</div></code></pre>
+<p>6-13. 回転力 100%</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoMotionCreation.setTorque(<span class="hljs-number">100</span>);
+</div></code></pre>
+<p>6-14. 回転力オフ</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.wegoMotionCreation.torqueOff();
+</div></code></pre>
+<h2 id="7-ml2scratch%E3%82%AF%E3%83%A9%E3%82%B9%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92%E3%81%AE%E6%A9%9F%E8%83%BD%E3%82%92%E3%82%82%E3%81%A4%E3%82%AF%E3%83%A9%E3%82%B9">7. [ml2scratch]クラス：機械学習の機能をもつクラス</h2>
+<p>7-1. ラベル 1 を学習する</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.ml2scratch.addExample1();
+</div></code></pre>
+<p>7-2. ラベル 2 を学習する</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.ml2scratch.addExample2();
+</div></code></pre>
+<p>7-3. ラベル 3 を学習する</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.ml2scratch.addExample3();
+</div></code></pre>
+<p>7-4. （引数）のカメラを使用する</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.ml2scratch.changeCamera(<span class="hljs-string">"machine"</span>);
+<span class="hljs-keyword">await</span> commands.ml2scratch.changeCamera(<span class="hljs-string">"robot"</span>);
+</div></code></pre>
+<p>7-5. 学習データをダウンロード</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.ml2scratch.download();
+</div></code></pre>
+<p>7-6. ラベル 1 の枚数</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.ml2scratch.getCountByLabel1();
+</div></code></pre>
+<p>7-7. ラベル 2 の枚数</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.ml2scratch.getCountByLabel2();
+</div></code></pre>
+<p>7-8. ラベル 3 の枚数</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.ml2scratch.getCountByLabel3();
+</div></code></pre>
+<p>7-9. ラベル 4 の枚数</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.ml2scratch.getCountByLabel4();
+</div></code></pre>
+<p>7-10. ラベル 5 の枚数</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.ml2scratch.getCountByLabel5();
+</div></code></pre>
+<p>7-11. ラベル 6 の枚数</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.ml2scratch.getCountByLabel6();
+</div></code></pre>
+<p>7-12. ラベル 7 の枚数</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.ml2scratch.getCountByLabel7();
+</div></code></pre>
+<p>7-13. ラベル 8 の枚数</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.ml2scratch.getCountByLabel8();
+</div></code></pre>
+<p>7-14. ラベル 9 の枚数</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.ml2scratch.getCountByLabel9();
+</div></code></pre>
+<p>7-15. ラベル 10 の枚数</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.ml2scratch.getCountByLabel10();
+</div></code></pre>
+<p>7-16. ラベル（引数）の枚数</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.ml2scratch.getCountByLabel(<span class="hljs-number">11</span>);
+</div></code></pre>
+<p>7-17. ラベル</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">const</span> label = <span class="hljs-keyword">await</span> commands.ml2scratch.getLabel();
+</div></code></pre>
+<p>7-18. ラベル（引数）の学習をリセット(引数：all（全て）、1~10)</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.ml2scratch.reset(<span class="hljs-string">"all"</span>);
+<span class="hljs-keyword">await</span> commands.ml2scratch.reset(<span class="hljs-string">"1"</span>);
+<span class="hljs-comment">// ...</span>
+<span class="hljs-keyword">await</span> commands.ml2scratch.reset(<span class="hljs-string">"10"</span>);
+</div></code></pre>
+<p>7-19. ラベル（引数）の学習をリセット(引数：自由入力)</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.ml2scratch.resetAny(<span class="hljs-number">11</span>);
+</div></code></pre>
+<p>7-20. ラベル付けを（引数）秒間に 1 回行う</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.ml2scratch.setClassificationInterval(<span class="hljs-number">1</span>);
+<span class="hljs-keyword">await</span> commands.ml2scratch.setClassificationInterval(<span class="hljs-number">0.5</span>);
+<span class="hljs-keyword">await</span> commands.ml2scratch.setClassificationInterval(<span class="hljs-number">0.2</span>);
+<span class="hljs-keyword">await</span> commands.ml2scratch.setClassificationInterval(<span class="hljs-number">0.1</span>);
+</div></code></pre>
+<p>7-21. （引数）の画像を学習/判定する</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.ml2scratch.setInput(<span class="hljs-string">"webcam"</span>);
+<span class="hljs-keyword">await</span> commands.ml2scratch.setInput(<span class="hljs-string">"stage"</span>);
+</div></code></pre>
+<p>7-22. ビデオの透明度を（引数）にする</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.ml2scratch.setVideoTransparency(<span class="hljs-number">50</span>);
+</div></code></pre>
+<p>7-23. ラベル付けを（引数）にする</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.ml2scratch.toggleClassification(<span class="hljs-string">"off"</span>);
+<span class="hljs-keyword">await</span> commands.ml2scratch.toggleClassification(<span class="hljs-string">"on"</span>);
+</div></code></pre>
+<p>7-24. ラベル（引数）を学習する(引数：4~10)</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.ml2scratch.train(<span class="hljs-number">4</span>);
+<span class="hljs-keyword">await</span> commands.ml2scratch.train(<span class="hljs-number">5</span>);
+<span class="hljs-comment">// ...</span>
+<span class="hljs-keyword">await</span> commands.ml2scratch.train(<span class="hljs-number">10</span>);
+</div></code></pre>
+<p>7-25. ラベル（引数）を学習する(引数：自由入力)</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.ml2scratch.trainAny(<span class="hljs-number">11</span>);
+</div></code></pre>
+<p>7-26. 学習データをアップロード</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.ml2scratch.upload();
+</div></code></pre>
+<p>7-27. ビデオを（引数）にする</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> commands.ml2scratch.videoToggle(<span class="hljs-string">"off"</span>);
+<span class="hljs-keyword">await</span> commands.ml2scratch.videoToggle(<span class="hljs-string">"on"</span>);
+<span class="hljs-keyword">await</span> commands.ml2scratch.videoToggle(<span class="hljs-string">"on-flipped"</span>);
+</div></code></pre>
+
+</body>
+</html>
